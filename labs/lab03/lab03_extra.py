@@ -1,4 +1,5 @@
 """ Optional problems for Lab 3 """
+import math
 
 
 def is_prime(n):
@@ -12,6 +13,24 @@ def is_prime(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n < 2:
+        return False
+    elif n == 2:
+        return True
+    elif n % 2 == 0:
+        return False
+
+    i = 3
+    while i < int(math.sqrt(n)) + 1:
+        if n % i == 0:
+            return False
+        i += 2
+    return True
+
+
+# print(is_prime(2))
+# print(is_prime(16))
+# print(is_prime(521))
 
 
 def gcd(a, b):
@@ -28,6 +47,14 @@ def gcd(a, b):
     40
     """
     "*** YOUR CODE HERE ***"
+    if b == 0:
+        return a
+    return gcd(b, a % b)
+
+
+print(gcd(34, 19))
+print(gcd(39, 91))
+print(gcd(20, 30))
 
 
 def ten_pairs(n):
