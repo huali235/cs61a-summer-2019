@@ -101,6 +101,10 @@ def summation_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n == 0:
+        return 0
+    else:
+        return term(n) + accumulate(add, 0, n - 1, term)
 
 
 def product_using_accumulate(n, term):
@@ -116,6 +120,10 @@ def product_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n == 0:
+        return 0
+    else:
+        return term(n) * accumulate(mul, 1, n - 1, term)
 
 
 def compose1(f, g):
@@ -144,6 +152,15 @@ def make_repeater(f, n):
     """
     "*** YOUR CODE HERE ***"
 
+    def h(x):
+        k = 0
+        while k < n:
+            x = f(x)
+            k += 1
+        return x
+
+    return h
+
 
 def num_sevens(n):
     """Returns the number of times 7 appears as a digit of n.
@@ -166,6 +183,14 @@ def num_sevens(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n == 0:
+        return 0
+    if n % 10 == 7:
+        return 1 + num_sevens(n // 10)
+    return num_sevens(n // 10)
+
+
+print(num_sevens(2637))
 
 
 def pingpong(n):
