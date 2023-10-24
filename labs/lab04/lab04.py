@@ -1,5 +1,6 @@
 """ Lab 04: Lists and Data Abstraction """
 
+
 def couple(s1, s2):
     """Return a list that contains lists with i-th elements of two sequences
     coupled together.
@@ -14,6 +15,14 @@ def couple(s1, s2):
     """
     assert len(s1) == len(s2)
     "*** YOUR CODE HERE ***"
+    result = []
+    for i in range(len(s1)):
+        result += [[s1[i], s2[i]]]
+    return result
+
+
+print(couple([1, 2, 3], [4, 5, 6]))
+
 
 def enumerate(s, start=0):
     """Returns a list of lists, where the i-th list contains i+start and
@@ -24,8 +33,17 @@ def enumerate(s, start=0):
     [[5, 'f'], [6, 'i'], [7, 'v'], [8, 'e']]
     """
     "*** YOUR CODE HERE ***"
+    result = []
+    for i in range(len(s)):
+        result += [[start, s[i]]]
+        start += 1
+    return result
 
+
+print(enumerate("five", 5))
 from math import sqrt
+
+
 def distance(city1, city2):
     """
     >>> city1 = make_city('city1', 0, 1)
@@ -38,6 +56,7 @@ def distance(city1, city2):
     5.0
     """
     "*** YOUR CODE HERE ***"
+
 
 def closer_city(lat, lon, city1, city2):
     """
@@ -54,6 +73,7 @@ def closer_city(lat, lon, city1, city2):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+
 
 def check_abstraction():
     """
@@ -81,6 +101,7 @@ def check_abstraction():
 
 # Treat all the following code as being behind an abstraction layer, you shouldn't need to look at it!
 
+
 def make_city(name, lat, lon):
     """
     >>> city = make_city('Berkeley', 0, 1)
@@ -92,9 +113,10 @@ def make_city(name, lat, lon):
     1
     """
     if change_abstraction.changed:
-        return {"name" : name, "lat" : lat, "lon" : lon}
+        return {"name": name, "lat": lat, "lon": lon}
     else:
         return [name, lat, lon]
+
 
 def get_name(city):
     """
@@ -107,6 +129,7 @@ def get_name(city):
     else:
         return city[0]
 
+
 def get_lat(city):
     """
     >>> city = make_city('Berkeley', 0, 1)
@@ -117,6 +140,7 @@ def get_lat(city):
         return city["lat"]
     else:
         return city[1]
+
 
 def get_lon(city):
     """
@@ -129,7 +153,9 @@ def get_lon(city):
     else:
         return city[2]
 
+
 def change_abstraction(change):
     change_abstraction.changed = change
+
 
 change_abstraction.changed = False
