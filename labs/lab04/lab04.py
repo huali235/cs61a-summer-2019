@@ -21,9 +21,6 @@ def couple(s1, s2):
     return result
 
 
-print(couple([1, 2, 3], [4, 5, 6]))
-
-
 def enumerate(s, start=0):
     """Returns a list of lists, where the i-th list contains i+start and
     the i-th element of s.
@@ -40,7 +37,6 @@ def enumerate(s, start=0):
     return result
 
 
-print(enumerate("five", 5))
 from math import sqrt
 
 
@@ -56,6 +52,9 @@ def distance(city1, city2):
     5.0
     """
     "*** YOUR CODE HERE ***"
+    return sqrt(
+        (get_lat(city1) - get_lat(city2)) ** 2 + (get_lon(city1) - get_lon(city2)) ** 2
+    )
 
 
 def closer_city(lat, lon, city1, city2):
@@ -73,6 +72,10 @@ def closer_city(lat, lon, city1, city2):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    if distance(["", lat, lon], city1) > distance(["", lat, lon], city2):
+        return get_name(city2)
+    else:
+        return get_name(city1)
 
 
 def check_abstraction():
