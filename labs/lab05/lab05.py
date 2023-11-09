@@ -79,6 +79,10 @@ def acorn_finder(t):
     True
     """
     "*** YOUR CODE HERE ***"
+    if label(t) == "acorn":
+        return True
+    else:
+        return any(acorn_finder(b) for b in branches(t))
 
 
 # Tree ADT
