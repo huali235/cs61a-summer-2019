@@ -1,22 +1,26 @@
-HW_SOURCE_FILE = 'hw03.py'
+HW_SOURCE_FILE = "hw03.py"
 
 #########
 # Trees #
 #########
 
+
 def tree(label, branches=[]):
     """Construct a tree with the given label value and a list of branches."""
     for branch in branches:
-        assert is_tree(branch), 'branches must be trees'
+        assert is_tree(branch), "branches must be trees"
     return [label] + list(branches)
+
 
 def label(tree):
     """Return the label value of a tree."""
     return tree[0]
 
+
 def branches(tree):
     """Return the list of branches of the given tree."""
     return tree[1:]
+
 
 def is_tree(tree):
     """Returns True if the given tree is a tree, and False otherwise."""
@@ -27,11 +31,13 @@ def is_tree(tree):
             return False
     return True
 
+
 def is_leaf(tree):
     """Returns True if the given tree's list of branches is empty, and False
     otherwise.
     """
     return not branches(tree)
+
 
 def print_tree(t, indent=0):
     """Print a representation of this tree in which each node is
@@ -52,9 +58,10 @@ def print_tree(t, indent=0):
       6
         7
     """
-    print('  ' * indent + str(label(t)))
+    print("  " * indent + str(label(t)))
     for b in branches(t):
         print_tree(b, indent + 1)
+
 
 def copy_tree(t):
     """Returns a copy of t. Only for testing purposes.
@@ -67,20 +74,25 @@ def copy_tree(t):
     """
     return tree(label(t), [copy_tree(b) for b in branches(t)])
 
+
 #############
 # Questions #
 #############
 def intersection(st, ave):
     """Represent an intersection using the Cantor pairing function."""
-    return (st+ave)*(st+ave+1)//2 + ave
+    return (st + ave) * (st + ave + 1) // 2 + ave
+
 
 def street(inter):
     return w(inter) - avenue(inter)
 
+
 def avenue(inter):
     return inter - (w(inter) ** 2 + w(inter)) // 2
 
-w = lambda z: int(((8*z+1)**0.5-1)/2)
+
+w = lambda z: int(((8 * z + 1) ** 0.5 - 1) / 2)
+
 
 def taxicab(a, b):
     """Return the taxicab distance between two intersections.
@@ -93,6 +105,8 @@ def taxicab(a, b):
     9
     """
     "*** YOUR CODE HERE ***"
+    return (abs(street(a) - street(b))) + (abs(avenue(a) - avenue(b)))
+
 
 def flatten(lst):
     """Returns a flattened version of lst.
@@ -111,6 +125,14 @@ def flatten(lst):
     [[1, [1, 1]], 1, [1, 1]]
     """
     "*** YOUR CODE HERE ***"
+    flat_list = []
+    for element in lst:
+        if type(element) == list:
+            flat_list += flatten(element)
+        else:
+            flat_list += [element]
+    return flat_list
+
 
 def replace_leaf(t, old, new):
     """Returns a new tree where every leaf value equal to old has
@@ -142,70 +164,102 @@ def replace_leaf(t, old, new):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_leaf(t) == old:
+        label(t) == new
+    for b in branches(t):
+        t += label(t)
+
+    return t
+
+
+yggdrasil = tree(
+    "odin",
+    [
+        tree("balder", [tree("thor"), tree("freya")]),
+        tree("frigg", [tree("thor")]),
+        tree("thor", [tree("sif"), tree("thor")]),
+        tree("thor"),
+    ],
+)
+laerad = copy_tree(yggdrasil)  # copy yggdrasil for testing purposes
+print_tree(replace_leaf(yggdrasil, "thor", "freya"))
+
 
 # Mobiles
+
 
 def mobile(left, right):
     """Construct a mobile from a left side and a right side."""
     assert is_side(left), "left must be a side"
     assert is_side(right), "right must be a side"
-    return ['mobile', left, right]
+    return ["mobile", left, right]
+
 
 def is_mobile(m):
     """Return whether m is a mobile."""
-    return type(m) == list and len(m) == 3 and m[0] == 'mobile'
+    return type(m) == list and len(m) == 3 and m[0] == "mobile"
+
 
 def left(m):
     """Select the left side of a mobile."""
     assert is_mobile(m), "must call left on a mobile"
     return m[1]
 
+
 def right(m):
     """Select the right side of a mobile."""
     assert is_mobile(m), "must call right on a mobile"
     return m[2]
 
+
 def side(length, mobile_or_weight):
     """Construct a side: a length of rod with a mobile or weight at the end."""
     assert is_mobile(mobile_or_weight) or is_weight(mobile_or_weight)
-    return ['side', length, mobile_or_weight]
+    return ["side", length, mobile_or_weight]
+
 
 def is_side(s):
     """Return whether s is a side."""
-    return type(s) == list and len(s) == 3 and s[0] == 'side'
+    return type(s) == list and len(s) == 3 and s[0] == "side"
+
 
 def length(s):
     """Select the length of a side."""
     assert is_side(s), "must call length on a side"
     return s[1]
 
+
 def end(s):
     """Select the mobile or weight hanging at the end of a side."""
     assert is_side(s), "must call end on a side"
     return s[2]
+
 
 def weight(size):
     """Construct a weight of some size."""
     assert size > 0
     "*** YOUR CODE HERE ***"
 
+
 def size(w):
     """Select the size of a weight."""
-    assert is_weight(w), 'must call size on a weight'
+    assert is_weight(w), "must call size on a weight"
     "*** YOUR CODE HERE ***"
+
 
 def is_weight(w):
     """Whether w is a weight."""
-    return type(w) == list and len(w) == 2 and w[0] == 'weight'
+    return type(w) == list and len(w) == 2 and w[0] == "weight"
+
 
 def examples():
-    t = mobile(side(1, weight(2)),
-               side(2, weight(1)))
-    u = mobile(side(5, weight(1)),
-               side(1, mobile(side(2, weight(3)),
-                              side(3, weight(2)))))
+    t = mobile(side(1, weight(2)), side(2, weight(1)))
+    u = mobile(
+        side(5, weight(1)), side(1, mobile(side(2, weight(3)), side(3, weight(2))))
+    )
     v = mobile(side(4, t), side(2, u))
     return (t, u, v)
+
 
 def total_weight(m):
     """Return the total weight of m, a weight or mobile.
@@ -224,6 +278,7 @@ def total_weight(m):
         assert is_mobile(m), "must get total weight of a mobile or a weight"
         return total_weight(end(left(m))) + total_weight(end(right(m)))
 
+
 def balanced(m):
     """Return whether m is balanced.
 
@@ -241,6 +296,7 @@ def balanced(m):
     False
     """
     "*** YOUR CODE HERE ***"
+
 
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root.
@@ -269,25 +325,32 @@ def totals_tree(m):
     """
     "*** YOUR CODE HERE ***"
 
+
 ###################
 # Extra Questions #
 ###################
 
+
 def zero(f):
     return lambda x: x
 
+
 def successor(n):
     return lambda f: lambda x: f(n(f)(x))
+
 
 def one(f):
     """Church numeral 1: same as successor(zero)"""
     "*** YOUR CODE HERE ***"
 
+
 def two(f):
     """Church numeral 2: same as successor(successor(zero))"""
     "*** YOUR CODE HERE ***"
 
+
 three = successor(two)
+
 
 def church_to_int(n):
     """Convert the Church numeral n to a Python integer.
@@ -303,6 +366,7 @@ def church_to_int(n):
     """
     "*** YOUR CODE HERE ***"
 
+
 def add_church(m, n):
     """Return the Church numeral for m + n, for Church numerals m and n.
 
@@ -310,6 +374,7 @@ def add_church(m, n):
     5
     """
     "*** YOUR CODE HERE ***"
+
 
 def mul_church(m, n):
     """Return the Church numeral for m * n, for Church numerals m and n.
@@ -321,6 +386,7 @@ def mul_church(m, n):
     12
     """
     "*** YOUR CODE HERE ***"
+
 
 def pow_church(m, n):
     """Return the Church numeral m ** n, for Church numerals m and n.
